@@ -1,0 +1,51 @@
+﻿<ArcGIS defaultAssembly="DemoCIMSymbols.dll" defaultNamespace="DemoCIMSymbols" xmlns="http://schemas.esri.com/DADF/Registry" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.esri.com/DADF/Registry file:///C:/Program%20Files/ArcGIS/Pro/bin/ArcGIS.Desktop.Framework.xsd">
+  <AddInInfo id="{524907c5-c97e-40cd-8d91-57ebf83a9c51}" version="1.0" desktopVersion="3.0.34564">
+    <Name>DemoCIMSymbols</Name>
+    <Description>DemoCIMSymbols ArcadeDemo voor GISTech 2022</Description>
+    <Image>Images\AddinDesktop32.png</Image>
+    <Author>Mallo</Author>
+    <Company>Esri Nederland</Company>
+    <Date>29-Mar-2022 07:42:54</Date>
+    <Subject>Framework</Subject>
+    <!-- Note subject can be one or more of these topics:
+                    Content, Framework, Editing, Geodatabase, Geometry, Geoprocessing, Layouts, Map Authoring, Map Exploration -->
+  </AddInInfo>
+  <dependencies>
+    <dependency name="{af341f59-17d4-45c2-a442-c6be0d3ff590}" />
+  </dependencies>
+  <modules>
+    <insertModule id="DemoCIMSymbols_Module" className="Module1" autoLoad="false" caption="Module1">
+      <!-- uncomment to have the control hosted on a separate tab-->
+      <groups>
+        <!-- comment this out if you have no controls on the Addin tab to avoid
+              an empty group-->
+        <group id="DemoCIMSymbols_Group" caption="CIM Symbols" appearsOnAddInTab="false" keytip="S">
+          <!-- host controls within groups -->
+          <tool refID="DemoCIMSymbols_CreateSymbol" size="large" />
+          <tool refID="DemoCIMSymbols_SymbolByUrl" size="large" />
+          <tool refID="DemoCIMSymbols_LoadMaptool" size="large" />
+        </group>
+      </groups>
+      <controls>
+        <!-- add your controls here -->
+        <tool id="DemoCIMSymbols_CreateSymbol" caption="Creeer" className="CreateSymbol" loadOnClick="true" smallImage="pack://application:,,,/ArcGIS.Desktop.Resources;component/Images/GenericButtonRed16.png" largeImage="pack://application:,,,/ArcGIS.Desktop.Resources;component/Images/GenericButtonRed32.png" condition="esri_mapping_mapPane" keytip="c">
+          <tooltip heading="Tooltip Heading">Creeer een CIMSymbol<disabledText /></tooltip>
+        </tool>
+        <tool id="DemoCIMSymbols_SymbolByUrl" caption="By URL" className="SymbolByUrl" loadOnClick="true" smallImage="pack://application:,,,/ArcGIS.Desktop.Resources;component/Images/GenericButtonGreen16.png" largeImage="pack://application:,,,/ArcGIS.Desktop.Resources;component/Images/GenericButtonGreen32.png" condition="esri_mapping_mapPane" keytip="u">
+          <tooltip heading="Tooltip Heading">Laad een CIMSymbol van URL<disabledText /></tooltip>
+        </tool>
+        <tool id="DemoCIMSymbols_LoadMaptool" caption="Laad" className="LoadMaptool" loadOnClick="true" smallImage="pack://application:,,,/ArcGIS.Desktop.Resources;component/Images/GenericButtonBlue16.png" largeImage="pack://application:,,,/ArcGIS.Desktop.Resources;component/Images/GenericButtonBlue32.png" condition="esri_mapping_mapPane" keytip="l">
+          <tooltip heading="Tooltip Heading">Laad een CIMSymbol uit JSON<disabledText />
+          </tooltip>
+        </tool>
+      </controls>
+    </insertModule>
+    <updateModule refID="ArcadeDemo_Module">
+      <tabs>
+        <updateTab refID="GISTech2022_Tab">
+          <insertGroup refID="DemoCIMSymbols_Group" insert="after" />
+        </updateTab>
+      </tabs>
+    </updateModule>
+  </modules>
+</ArcGIS>

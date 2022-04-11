@@ -1,0 +1,177 @@
+<!doctype html>
+
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <title>Interceptor
+    </title>
+    <link rel="stylesheet" href="https://js.arcgis.com/calcite-components/1.0.0-beta.62/calcite.css" />
+    <script src="https://js.arcgis.com/calcite-components/1.0.0-beta.62/calcite.js" type=module></script>
+    <link rel="stylesheet" href="https://js.arcgis.com/4.23/esri/themes/light/main.css" />
+    <script src="https://js.arcgis.com/4.23/"></script>
+
+
+    <style>
+        html,
+        body,
+        #mapDiv {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        #header {
+            padding-left: 10px;
+            background-color: var(--calcite-ui-brand);
+            border-bottom: solid 1px var(--calcite-ui-brand-press);
+            color: var(--calcite-ui-foreground-3);
+        }
+
+        #footer {
+            padding: 10px 5px 10px 5px;
+            background-color: var(--calcite-ui-background);
+            border-top: solid 1px var(--calcite-ui-border-1);
+
+        }
+
+        /*Remove the black bar from the map*/
+        #mapDiv .esri-view-surface:focus::after {
+            outline: auto 0px !important;
+        }
+
+        .esri-logo {
+            margin: 0.375 rem;
+            content: "";
+            display: inline-block;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-color: transparent;
+            min-height: 30px;
+            min-width: 70px;
+            line-height: 0;
+            background-size: 100% 100%;
+            background-image: url(esri-logo.svg);
+        }
+
+
+        /*on a black theme change the logo*/
+        .calcite-theme-dark .esri-logo {
+            background-image: url(esri-logo-reversed.svg);
+        }
+    </style>
+    <script>
+
+        require([
+            "esri/Map",
+            "esri/WebMap",
+            "esri/views/MapView",
+            "esri/layers/FeatureLayer",
+            "esri/widgets/Expand",
+            "esri/config"
+        ],
+            function (Map, WebMap, MapView, FeatureLayer,
+                Expand, esriConfig) {
+                    var featureLayerUrl = "https://devteam.esri.nl/server/rest/services/Hosted/WorldCities/FeatureServer/0"
+
+                var counter = 0;
+                var requestCount = document.getElementById("requestCount");
+                esriConfig.request.interceptors.push({
+                    urls: featureLayerUrl,
+
+                    before: function (params) {
+                        if(addHeaders)
+                        {
+                            params.requestOptions.headers = {"ax-EsriNL-Devteam":42} 
+                            console.log("Add header to: ",params)
+                        }
+                    },
+                    after:function(params)
+                    {
+                        counter +=1;
+                        requestCount.innerHTML = counter;
+
+                    }
+
+                })
+
+                
+                var featureLayer = new FeatureLayer({
+                    url: featureLayerUrl,
+                    outFields: ["*"],
+                    refreshInterval: 0.1,
+                });
+
+                //get the map
+                const map = new Map({
+                    basemap: "topo-vector",
+                    layers: [featureLayer]
+                });
+
+                var addHeaders = false;
+
+                const view = new MapView({
+                    container: "mapDiv",
+                    map: map,
+                    center: [6.1, 52.5],
+                    zoom: 13
+                });
+
+                var infoExpand = new Expand({
+                    view: view,
+                    content: document.getElementById("info-panel"),
+                    expandIconClass: "esri-icon-description",
+                    expanded: true
+
+                });
+                view.ui.add(infoExpand, "top-right");
+
+                document.getElementById("toggleButton").onclick = function () {
+                    addHeaders = !addHeaders;
+                    document.getElementById("headerEnabled").innerHTML = addHeaders
+                    
+                };
+
+            });
+
+
+    </script>
+</head>
+
+<body>
+    <!-- shell will provide main app layout -->
+    <calcite-shell content-behind>
+        <!-- custom header for the shell -->
+        <div slot="header" id="header">
+            <h2 id="header-title">JS Interceptor</h2>
+        </div>
+
+        <div id="mapDiv"></div>
+        <calcite-panel heading="Info" height-scale="l" width-scale="m" data-panel-id="info" id="info-panel"
+            style="width:420px;">
+            <div id="info-container" class="info-container" style="padding: 1rem;width:420px;">
+                <table>
+                    <tr>
+                        <td>
+                <calcite-button id="toggleButton">Enable</calcite-button>
+            </td>
+            <td><span id="headerEnabled">False</span></td>
+            </tr>
+            <tr>
+                        <td>RequestCount:</td>
+                        <td><span id="requestCount"></span></td>
+                    </tr>
+                </table>
+            </div>
+        </calcite-panel>
+
+        <!-- custom footer for the shell -->
+        <div slot="footer" id="footer">
+            <div class="esri-logo"></div>
+        </div>
+    </calcite-shell>
+
+</body>
+
+</html>

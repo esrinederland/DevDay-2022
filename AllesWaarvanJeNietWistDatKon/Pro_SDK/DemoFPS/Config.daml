@@ -1,0 +1,42 @@
+﻿<ArcGIS defaultAssembly="DemoFPS.dll" defaultNamespace="DemoFPS" xmlns="http://schemas.esri.com/DADF/Registry" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.esri.com/DADF/Registry file:///C:/Program%20Files/ArcGIS/Pro/bin/ArcGIS.Desktop.Framework.xsd">
+  <AddInInfo id="{21f00413-5bda-4af3-8165-7160fa27b414}" version="1.0" desktopVersion="3.0.34564">
+    <Name>DemoFPS</Name>
+    <Description>First Person Shooter voor GISTech 2022</Description>
+    <Image>Images\AddinDesktop32.png</Image>
+    <Author>Mallo</Author>
+    <Company>Esri Nederland</Company>
+    <Date>05-Apr-2022 06:23:55</Date>
+    <Subject>Framework</Subject>
+    <!-- Note subject can be one or more of these topics:
+                    Content, Framework, Editing, Geodatabase, Geometry, Geoprocessing, Layouts, Map Authoring, Map Exploration -->
+  </AddInInfo>
+  <dependencies>
+    <dependency name="{af341f59-17d4-45c2-a442-c6be0d3ff590}" />
+  </dependencies>
+  <modules>
+    <insertModule id="DemoFPS_Module" className="Module1" autoLoad="false" caption="Module1">
+ 	<groups>
+        <!-- comment this out if you have no controls on the Addin tab to avoid an empty group-->
+        <group id="DemoFPS_Group" caption="FPS" keytip="F" appearsOnAddInTab="false">
+          <!-- host controls within groups -->
+          <tool refID="FPS_FPS" size="large" />
+        </group>
+      </groups>
+      <controls>
+        <!-- add your controls here -->
+        <tool id="FPS_FPS" caption="FPS" className="FPS" loadOnClick="true" smallImage="pack://application:,,,/ArcGIS.Desktop.Resources;component/Images/EvilGenius16.png" largeImage="pack://application:,,,/ArcGIS.Desktop.Resources;component/Images/EvilGenius32.png" condition="esri_mapping_mapPane" keytip="F">
+          <tooltip heading="Tooltip Heading">
+            FPS<disabledText />
+          </tooltip>
+        </tool>
+      </controls>
+    </insertModule>
+    <updateModule refID="ArcadeDemo_Module">
+      <tabs>
+        <updateTab refID="GISTech2022_Tab">
+          <insertGroup refID="DemoFPS_Group" insert="after" />
+        </updateTab>
+      </tabs>
+    </updateModule>
+  </modules>
+</ArcGIS>

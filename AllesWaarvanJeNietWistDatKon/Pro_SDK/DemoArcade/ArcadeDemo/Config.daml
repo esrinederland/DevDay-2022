@@ -1,0 +1,37 @@
+﻿<ArcGIS defaultAssembly="ArcadeDemo.dll" defaultNamespace="ArcadeDemo" xmlns="http://schemas.esri.com/DADF/Registry" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.esri.com/DADF/Registry file:///C:/Program%20Files/ArcGIS/Pro/bin/ArcGIS.Desktop.Framework.xsd">
+  <AddInInfo id="{af341f59-17d4-45c2-a442-c6be0d3ff590}" version="1.0" desktopVersion="3.0.34564">
+    <Name>ArcadeDemo</Name>
+    <Description>ArcadeDemo voor GISTech 2022</Description>
+    <Image>Images\AddinDesktop32.png</Image>
+    <Author>Mallo</Author>
+    <Company>Esri Nederland</Company>
+    <Date>29-Mar-2022 06:42:45</Date>
+    <Subject>Framework</Subject>
+    <!-- Note subject can be one or more of these topics:
+                    Content, Framework, Editing, Geodatabase, Geometry, Geoprocessing, Layouts, Map Authoring, Map Exploration -->
+  </AddInInfo>
+  <modules>
+    <insertModule id="ArcadeDemo_Module" className="Module1" autoLoad="false" caption="Module1">
+      <!-- uncomment to have the control hosted on a separate tab-->
+      <tabs>
+        <tab id="GISTech2022_Tab" caption="GISTech 2022" keytip="G">
+          <group refID="ArcadeDemo_Group" />
+        </tab>
+      </tabs>
+      <groups>
+        <!-- comment this out if you have no controls on the Addin tab to avoid
+              an empty group-->
+        <group id="ArcadeDemo_Group" caption="Arcade" appearsOnAddInTab="false" keytip="A">
+          <!-- host controls within groups -->
+          <button refID="ArcadeDemo_btnAdjustLabels" size="large" />
+        </group>
+      </groups>
+      <controls>
+        <!-- add your controls here -->
+        <button id="ArcadeDemo_btnAdjustLabels" caption="Pas labels aan" className="BtnAdjustLabels" loadOnClick="true" smallImage="Images\Arcade16.png" largeImage="Images\Arcade32.png" keytip="D">
+          <tooltip heading="Tooltip Heading">Pas de labels aan middels Arcade<disabledText /></tooltip>
+        </button>
+      </controls>
+    </insertModule>
+  </modules>
+</ArcGIS>

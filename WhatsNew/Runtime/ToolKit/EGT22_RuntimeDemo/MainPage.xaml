@@ -1,0 +1,18 @@
+﻿<Page
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:EGT22_RuntimeDemo"
+    xmlns:esri="using:Esri.ArcGISRuntime.UI.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:esriTK="using:Esri.ArcGISRuntime.Toolkit.UI.Controls"
+    x:Class="EGT22_RuntimeDemo.MainPage"
+    mc:Ignorable="d">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <esri:MapView Map="{x:Bind Mode=OneWay, Path=ViewModel.Map}" x:Name="mapView" />
+        <esriTK:BasemapGallery  Margin="0,84,22,0" VerticalAlignment="Top" Height="846" GeoModel="{Binding ElementName=mapView, Path=Map}" HorizontalAlignment="Right" Width="308" />
+        <esriTK:SearchView Margin="0,37,22,0" GeoView="{Binding ElementName=mapView}" Width="256"/>
+        <esriTK:Compass HorizontalAlignment="Left" Margin="10,10,0,0" GeoView="{Binding ElementName=mapView}"/>
+        <esriTK:Legend HorizontalAlignment="Left" Margin="26,0,0,31" Width="210" GeoView="{Binding ElementName=mapView}" Height="310" VerticalAlignment="Bottom"/>
+    </Grid>
+</Page>

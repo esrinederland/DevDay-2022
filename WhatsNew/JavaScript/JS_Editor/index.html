@@ -1,0 +1,137 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>JS API: Editor</title>
+
+    <script src="https://js.arcgis.com/calcite-components/1.0.0-beta.77/calcite.esm.js" type="module"></script>
+    <link rel="stylesheet" href="https://js.arcgis.com/calcite-components/1.0.0-beta.77/calcite.css" />
+
+    <script src="https://js.arcgis.com/next/"></script>
+    <link rel="stylesheet" href="https://js.arcgis.com/next/esri/themes/light/main.css" />
+  </head>
+  <style>
+    html,
+    body,
+    #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+
+    body {
+      display: flex;
+    }
+
+    calcite-loader {
+      align-self: center;
+      justify-self: center;
+    }
+
+    #header-title {
+      margin-left: 1rem;
+      margin-right: 1rem;
+    }
+
+    #info-content {
+      padding: 0.75rem;
+    }
+
+    calcite-rating {
+      margin-top: 0.25rem;
+    }
+
+  </style>
+
+  <body>
+    <calcite-loader active></calcite-loader>
+    <calcite-shell content-behind hidden>
+      <h2 id="header-title" slot="header">
+        Nieuwe JavaScript API editor widget
+      </h2>
+
+      <calcite-shell-panel slot="primary-panel" detached>
+        <calcite-action-bar slot="action-bar">
+          <calcite-action data-action-id="editor" icon="pencil" text="Editor"></calcite-action>
+        </calcite-action-bar>
+
+        <!-- map-specific panels (each one provides a div for a ArcGIS JavaScript API widget) -->
+        <calcite-panel heading="" height-scale="l" data-panel-id="editor">
+          <div id="editor-container"></div>
+        </calcite-panel>
+      
+
+    
+      </calcite-shell-panel>
+      <div id="viewDiv"></div>
+    </calcite-shell>
+  </body>
+  <script>
+    require([
+      "esri/WebMap",
+      "esri/views/MapView",
+      "esri/widgets/Editor",
+    ], function(WebMap, MapView, Editor) {
+      const webmapId = new URLSearchParams(window.location.search).get("webmap")
+        ?? "9f1eb65129e24b64a84a374e25cb522f";
+
+
+
+
+      const map = new WebMap({
+        portalItem: {
+          id: webmapId
+        }
+      });
+
+      const view = new MapView({
+        map,
+        container: "viewDiv",
+        padding: {
+          left: 49
+        }
+      });
+
+      view.ui.move("zoom", "bottom-right");
+
+      const basemaps = new Editor({
+        view,
+        container: "editor-container"
+      });
+
+     
+
+      map.when(() => {
+
+        let activeWidget;
+
+        const handleActionBarClick = ({ target }) => {
+          if (target.tagName !== "CALCITE-ACTION") {
+            return;
+          }
+
+          if (activeWidget) {
+            document.querySelector(`[data-action-id=${activeWidget}]`).active = false;
+            document.querySelector(`[data-panel-id=${activeWidget}]`).hidden = true;
+          }
+
+          const nextWidget = target.dataset.actionId;
+          if (nextWidget !== activeWidget) {
+            document.querySelector(`[data-action-id=${nextWidget}]`).active = true;
+            document.querySelector(`[data-panel-id=${nextWidget}]`).hidden = false;
+            activeWidget = nextWidget;
+          } else {
+            activeWidget = null;
+          }
+        };
+
+        document.querySelector("calcite-action-bar").addEventListener("click", handleActionBarClick);
+
+        document.querySelector("calcite-shell").hidden = false;
+        document.querySelector("calcite-loader").active = false;
+
+      });
+    });
+  </script>
+</html>

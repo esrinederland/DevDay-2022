@@ -1,0 +1,36 @@
+﻿<ArcGIS defaultAssembly="Pro3.dll" defaultNamespace="Pro3" xmlns="http://schemas.esri.com/DADF/Registry" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.esri.com/DADF/Registry file:///C:/Program%20Files/ArcGIS/Pro/bin/ArcGIS.Desktop.Framework.xsd">
+  <AddInInfo id="{b93eebb1-6ee1-46cb-b06e-ae7e6bfed457}" version="1.0" desktopVersion="2.9.32739">
+    <Name>Pro3</Name>
+    <Description>ArcGis Pro 2 naar 3 demo</Description>
+    <Image>Images\AddinDesktop32.png</Image>
+    <Author>Mallo</Author>
+    <Company>Esri Nederland</Company>
+    <Date>4/7/2022 9:49:13 AM</Date>
+    <Subject>Framework</Subject>
+    <!-- Note subject can be one or more of these topics:
+                    Content, Framework, Editing, Geodatabase, Geometry, Geoprocessing, Layouts, Map Authoring, Map Exploration -->
+  </AddInInfo>
+  <modules>
+    <insertModule id="Pro3_Module" className="Module1" autoLoad="false" caption="Module1">
+      <!-- uncomment to have the control hosted on a separate tab-->
+      <tabs>
+        <!--<tab id="Pro3_Tab1" caption="New Tab">
+          <group refID="Pro3_Group1"/>
+        </tab>-->
+      </tabs>
+      <groups>
+        <!-- comment this out if you have no controls on the Addin tab to avoid an empty group-->
+        <group id="Pro3_Group" caption="GISTech 2022" appearsOnAddInTab="true">
+          <!-- host controls within groups -->
+          <tool refID="Pro3_MapTool1" size="large" />
+        </group>
+      </groups>
+      <controls>
+        <!-- add your controls here -->
+        <tool id="Pro3_MapTool1" caption="Demo" className="MapTool1" loadOnClick="true" smallImage="pack://application:,,,/ArcGIS.Desktop.Resources;component/Images/GenericButtonRed16.png" largeImage="pack://application:,,,/ArcGIS.Desktop.Resources;component/Images/GenericButtonRed32.png" condition="esri_mapping_mapPane">
+          <tooltip heading="Tooltip Heading">Demo<disabledText /></tooltip>
+        </tool>
+      </controls>
+    </insertModule>
+  </modules>
+</ArcGIS>
