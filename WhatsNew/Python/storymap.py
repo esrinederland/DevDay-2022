@@ -1,3 +1,8 @@
+#### View StoryMaps ####
+########################
+## Pico & Noodle:   https://storymaps.arcgis.com/stories/9cc15ffdbedb4d9798a0b3598dfeccc1
+## Keko:            https://storymaps.arcgis.com/stories/f463daf191f04be09c2e60577751805e
+
 from arcgis import GIS
 
 from arcgis.apps.storymap.story import StoryMap
