@@ -1,0 +1,28 @@
+{
+    "id": "{webhookID}",
+    "accountId": "",
+    "payloadUrl": "https://domain.com/arcgis/rest/events/portal",
+    "isActive": true,
+    "name": "egt22_create_group",
+    "config": {
+        "deactivationPolicy": {
+            "numberOfFailures": 5,
+            "daysInPast": 5
+        },
+        "properties": {
+            "federatedServer": {
+                "itemId": "{notebookItemID}",
+                "tokenTypeToSend": "owner",
+                "tokenExpirationTimeMinutes": 10,
+                "portalUsername": "{notebookOwner}"
+            }
+        }
+    },
+    "ownerId": "",
+    "targetSystem": "notebookserver",
+    "created": 1649420905283,
+    "modified": 1649420905283,
+    "events": [
+        "/groups/add"
+    ]
+}

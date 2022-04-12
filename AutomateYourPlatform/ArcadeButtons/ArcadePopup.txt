@@ -1,0 +1,39 @@
+// Array with Layer names and URLs
+var layers = ["goedkeuren", "afkeuren"];
+var colors = ["Green", "Red"];
+
+// Create empty text
+var htmlText = "";
+
+var objectID = $feature.OID;
+var attachmentID = First(Attachments($feature)).ID;
+var apiKey = "";
+
+var attachmentUrl = "{featureLayerURL}" + objectID + "/attachments/" + attachmentID + "?token=" + apiKey;
+
+// Add Image to text
+var attachmentName = First(Attachments($feature)).name;
+htmlText += '<div style="background: url(' + attachmentUrl + ');background-size: cover;padding-bottom: 70%;"><div style="position: absolute;bottom: 0;left: 0;width: 100%;padding: 20px 10px;background: rgba(0, 0, 0, 0.25);">';
+
+htmlText += '<div style="display: flex;">'
+
+// HTML style Element
+var style = 'display: block;float: left;width: 100%;margin: 4px;padding: 15px;text-align: center;text-decoration: none;font-weight: normal;border-radius: 20px;color: white;line-height: 25px;background:';
+
+// Basic URL for Azure Function
+var hrefUrl = "{AzureFunctionURL}&OBJECTID=" + $feature.OID + "&FeatureService=";
+
+// Create new Button for each Layer name
+for (var layer in layers) {
+    var layerName = layers[layer];
+    var layerColor = colors[layer];
+    var href = hrefUrl + layerName;
+    var button = '<a style="' + style + layerColor + ';" href="' + href + '"><h4 style="color: white;">' + Proper(layerName) + '</h4></a>';    
+    htmlText += button;
+}
+
+htmlText += "</div></div></div>"
+return { 
+	type : 'text', 
+	text :htmlText
+}
